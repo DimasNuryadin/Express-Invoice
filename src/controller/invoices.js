@@ -31,12 +31,33 @@ const updateInvoice = (req, res) => {
   // console.log('id invoices', id)
   res.json({
     message: 'UPDATE invoices success',
-    data: req.body
+    data: {
+      id: id,
+      ...req.body
+    }
+  })
+}
+
+// DELETE invoices
+const deleteInvoice = (req, res) => {
+  const { id } = req.params;
+  res.json({
+    message: 'DELETE invoices success',
+    data: {
+      id: id,
+      alamat_perusahaan: "JL Bandung",
+      no_invoice: "123",
+      bill_to: "PT Indah Karya",
+      invoice_date: "12 Nov 2022",
+      due_date: "1 Jan 2022",
+      payment_instruction: "Rekening BCA"
+    }
   })
 }
 
 module.exports = {
   getAllInvoices,
   createNewInvoices,
-  updateInvoice
+  updateInvoice,
+  deleteInvoice
 }
