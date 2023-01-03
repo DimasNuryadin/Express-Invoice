@@ -1,19 +1,21 @@
+const InvoicesModel = require('../models/invoices')
+
 // GET ALL invoices
-const getAllInvoices = (req, res) => {
-  const data = {
-    id: '1',
-    alamat_perusahaan: "JL Bandung",
-    no_invoice: "123",
-    bill_to: "PT Indah Karya",
-    invoice_date: "12 Nov 2022",
-    due_date: "1 Jan 2022",
-    payment_instruction: "Rekening BCA"
+const getAllInvoices = async (req, res) => {
+  try {
+    const [data] = await InvoicesModel.getAllInvoices();
+
+    res.json({
+      message: 'GET all invoices success',
+      data: data
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      serverMessage: error
+    })
   }
 
-  res.json({
-    message: 'GET all invoices success',
-    data: data
-  })
 }
 
 // CREATE invoices
