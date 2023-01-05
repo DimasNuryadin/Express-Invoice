@@ -20,42 +20,67 @@ const getAllInvoices = async (req, res) => {
 }
 
 // CREATE invoices
-const createNewInvoices = (req, res) => {
-  // console.log(req.body)
-  res.json({
-    message: 'CREATE invoices success',
-    data: req.body
-  })
+const createNewInvoices = async (req, res) => {
+  // Destructuring dari req.body
+  const { body } = req;
+  try {
+    const [data] = await InvoicesModel.createNewInvoices(body);
+    res.json({
+      message: 'CREATE invoices success',
+      data: {
+        id: data.insertId,
+        ...body
+      },
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      serverMessage: error
+    })
+  }
+
+
 }
 
 // UPDATE invoices
-const updateInvoice = (req, res) => {
-  const { id } = req.params
-  // console.log('id invoices', id)
-  res.json({
-    message: 'UPDATE invoices success',
-    data: {
-      id: id,
-      ...req.body
-    }
-  })
+const updateInvoice = async (req, res) => {
+  const { idInvoices } = req.params
+  console.log('id invoices', idInvoices)
+  const { body } = req;
+  try {
+    await InvoicesModel.updateInvoices(body, idInvoices);
+    res.json({
+      message: 'CREATE invoices success',
+      data: {
+        id: idInvoices,
+        ...body
+      },
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      serverMessage: error
+    })
+  }
 }
 
 // DELETE invoices
-const deleteInvoice = (req, res) => {
-  const { id } = req.params;
-  res.json({
-    message: 'DELETE invoices success',
-    data: {
-      id: id,
-      alamat_perusahaan: "JL Bandung",
-      no_invoice: "123",
-      bill_to: "PT Indah Karya",
-      invoice_date: "12 Nov 2022",
-      due_date: "1 Jan 2022",
-      payment_instruction: "Rekening BCA"
-    }
-  })
+const deleteInvoice = async (req, res) => {
+  const { idInvoices } = req.params;
+  try {
+    await InvoicesModel.deleteInvoices(idInvoices)
+    res.json({
+      message: 'CREATE invoices success',
+      data: {
+        id: idInvoices,
+      },
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      serverMessage: error
+    })
+  }
 }
 
 module.exports = {
