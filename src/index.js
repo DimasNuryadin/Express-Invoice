@@ -1,3 +1,5 @@
+require('dotenv').config()
+const PORT = process.env.PORT || 4000;
 const express = require('express');
 const app = express();
 const usersRoutes = require('./routes/users')
@@ -10,10 +12,9 @@ app.use(express.json());  // Mengizinkan req.body berupa json
 app.use('/', usersRoutes)
 
 // Middleware
-app.use('/invoices', middlewareLogRequest)
-// Invoices
-app.use('/', invoicesRoutes)
+app.use('/', middlewareLogRequest)
+app.use('/invoices', invoicesRoutes)
 
-app.listen(4000, () => {
-  console.log('Aplikasi telah berjalan di port : 4000')
+app.listen(PORT, () => {
+  console.log(`Aplikasi telah berjalan di port :`, PORT)
 })
