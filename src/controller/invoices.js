@@ -25,7 +25,7 @@ const createNewInvoices = async (req, res) => {
   const { body } = req;
   try {
     const [data] = await InvoicesModel.createNewInvoices(body);
-    res.json({
+    res.status(201).json({
       message: 'CREATE invoices success',
       data: {
         id: data.insertId,
@@ -45,11 +45,11 @@ const createNewInvoices = async (req, res) => {
 // UPDATE invoices
 const updateInvoice = async (req, res) => {
   const { idInvoices } = req.params
-  console.log('id invoices', idInvoices)
+  // console.log('id invoices', idInvoices)
   const { body } = req;
   try {
     await InvoicesModel.updateInvoices(body, idInvoices);
-    res.json({
+    res.status(201).json({
       message: 'CREATE invoices success',
       data: {
         id: idInvoices,
