@@ -37,9 +37,12 @@ const updateDescription = async (req, res) => {
 
   try {
     await DescriptionsModels.updateDescriptions(body, id)
-    res.json({
+    res.status(201).json({
       message: 'Update descriptions success',
-      data: body,
+      data: {
+        id: id,
+        ...body
+      },
     })
   } catch (error) {
     res.status(500).json({

@@ -7,7 +7,7 @@ const getAllDescrptions = () => {
 }
 
 const createNewDescriptions = (body) => {
-  const SQLQuery = `INSERT INTO description (id_invoices, description, qty, rate) VALUES ('${body.id_invoices}', '${body.description}', '${body.qty}', '${body.rate}')`;
+  const SQLQuery = `INSERT INTO descriptions (id_invoices, description, qty, rate) VALUES (${body.id_invoices}, '${body.description}', ${body.qty}, ${body.rate})`;
 
   return dbPool.execute(SQLQuery);
 }

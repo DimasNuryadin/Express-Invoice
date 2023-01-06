@@ -5,17 +5,19 @@ const app = express();
 const usersRoutes = require('./routes/users')
 const invoicesRoutes = require('./routes/invoices')
 const descriptionsRoutes = require('./routes/descriptions')
+const downPaymentRoutes = require('./routes/down_payments')
 const middlewareLogRequest = require('./middleware/log')
 
 app.use(express.json());  // Mengizinkan req.body berupa json
 
 // Users
-app.use('/', usersRoutes)
+app.use('/users', usersRoutes)
 
 // Middleware
 app.use('/', middlewareLogRequest)
 app.use('/invoices', invoicesRoutes)
 app.use('/descriptions', descriptionsRoutes)
+app.use('/down_payments', downPaymentRoutes)
 
 app.listen(PORT, () => {
   console.log(`Aplikasi telah berjalan di port :`, PORT)
