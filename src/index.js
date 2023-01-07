@@ -7,7 +7,10 @@ const invoicesRoutes = require('./routes/invoices')
 const descriptionsRoutes = require('./routes/descriptions')
 const downPaymentRoutes = require('./routes/down_payments')
 const middlewareLogRequest = require('./middleware/log')
+const cors = require('cors')
 
+// Mengizinkan express network
+app.use(cors())
 app.use(express.json());  // Mengizinkan req.body berupa json
 
 // Users

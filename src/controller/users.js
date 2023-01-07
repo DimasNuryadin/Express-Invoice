@@ -16,12 +16,7 @@ const loginUser = async (req, res) => {
     if (data.length === 1) {
       res.status(200).json({
         message: 'LOGIN users success',
-        data: {
-          id: data1.id,
-          username: data1.username,
-          password: data1.password,
-          token: token
-        },
+        token: token
       })
     } else {
       res.status(401).json({

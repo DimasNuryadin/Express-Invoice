@@ -16,7 +16,6 @@ const getAllInvoices = async (req, res) => {
       serverMessage: error
     })
   }
-
 }
 
 // CREATE invoices
@@ -38,8 +37,6 @@ const createNewInvoices = async (req, res) => {
       serverMessage: error
     })
   }
-
-
 }
 
 // UPDATE invoices
