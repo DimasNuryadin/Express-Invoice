@@ -18,6 +18,23 @@ const getAllInvoices = async (req, res) => {
   }
 }
 
+const getInvoices = async (req, res) => {
+  const { idInvoices } = req.params;
+
+  try {
+    const [data] = await InvoicesModel.getInvoices(idInvoices)
+    res.json({
+      message: 'GET invoices succes',
+      data: data[0],
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      serverMessage: error
+    })
+  }
+}
+
 // CREATE invoices
 const createNewInvoices = async (req, res) => {
   // Destructuring dari req.body
@@ -82,6 +99,7 @@ const deleteInvoice = async (req, res) => {
 
 module.exports = {
   getAllInvoices,
+  getInvoices,
   createNewInvoices,
   updateInvoice,
   deleteInvoice
