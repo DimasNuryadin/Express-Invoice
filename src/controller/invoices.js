@@ -1,9 +1,11 @@
 const InvoicesModel = require('../models/invoices')
 
 // GET ALL invoices
+// const [rows, field] = await InvoicesModel.getAllInvoices();
+
 const getAllInvoices = async (req, res) => {
+
   try {
-    // const [rows, field] = await InvoicesModel.getAllInvoices();
     const [data] = await InvoicesModel.getAllInvoices();
 
     res.json({
