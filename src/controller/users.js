@@ -5,6 +5,13 @@ const config = require('../config/jwt');
 const loginUser = async (req, res) => {
   const { body } = req;
 
+  if (!body.email || !body.password) {
+    return res.status(400).json({
+      message: 'Email dan password tidak boleh kosong',
+      data: null
+    })
+  }
+
   try {
     const [data] = await UsersModels.loginUser(body);
 
@@ -20,7 +27,7 @@ const loginUser = async (req, res) => {
       })
     } else {
       res.status(401).json({
-        message: 'username atau password salah',
+        message: 'Email atau password salah',
       })
     }
   } catch (error) {
