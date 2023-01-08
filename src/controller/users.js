@@ -7,13 +7,13 @@ const loginUser = async (req, res) => {
 
   try {
     const [data] = await UsersModels.loginUser(body);
-    // Data destructuring
-    const data1 = data[0];
-    const token = jwt.sign(data1, config.secret, {
-      expiresIn: '24000'
-    });
 
     if (data.length === 1) {
+      // Data destructuring
+      const data1 = data[0];
+      const token = jwt.sign(data1, config.secret, {
+        expiresIn: '24000'
+      });
       res.status(200).json({
         message: 'LOGIN users success',
         token: token
