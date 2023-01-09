@@ -17,8 +17,43 @@ const createNewInvoices = (body) => {
   return dbPool.execute(SQLQuery)
 }
 
-const updateInvoices = (body, idInvoices) => {
-  const SQLQuery = `UPDATE invoices SET alamat_perusahaan='${body.alamat_perusahaan}', no_invoice='${body.no_invoice}', company='${body.company}', invoice_date='${body.invoice_date}', due_date='${body.due_date}', payment_instruction='${body.payment_instruction}' WHERE id=${idInvoices}`;
+const updateInvoiceStep1 = (body, idInvoices) => {
+  const today = new Date();
+  const date = today.getDate();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+
+  const now = `${year}-${month + 1}-${date}`;
+  // console.log("now : ", now)
+
+  const SQLQuery = `UPDATE invoices SET 
+                    alamat_perusahaan='${body.alamat_perusahaan}', 
+                    no_invoice='${body.no_invoice}', 
+                    company='${body.company}', 
+                    invoice_date='${body.invoice_date}', 
+                    due_date='${body.due_date}', 
+                    latest_update='${now}' 
+                    WHERE id=${idInvoices}`;
+
+  return dbPool.execute(SQLQuery);
+}
+
+const updateInvoiceStep2 = (body, idInvoices) => {
+  const today = new Date();
+  const date = today.getDate();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+
+  const now = `${year}-${month + 1}-${date}`;
+  // console.log("now : ", now)
+
+  const SQLQuery = `UPDATE invoices SET 
+                    payment_instruction='${body.payment_instruction}', 
+                    discount='${body.discount}', 
+                    tax='${body.tax}', 
+                    shipping='${body.shipping}', 
+                    latest_update='${now}' 
+                    WHERE id=${idInvoices}`;
 
   return dbPool.execute(SQLQuery);
 }
@@ -33,6 +68,7 @@ module.exports = {
   getAllInvoices,
   getInvoices,
   createNewInvoices,
-  updateInvoices,
+  updateInvoiceStep1,
+  updateInvoiceStep2,
   deleteInvoices
 }

@@ -26,7 +26,7 @@ const loginUser = async (req, res) => {
         token: token
       })
     } else {
-      res.status(401).json({
+      res.status(403).json({
         message: 'Email atau password salah',
       })
     }

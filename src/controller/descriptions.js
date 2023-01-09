@@ -38,7 +38,7 @@ const updateDescription = async (req, res) => {
   try {
     await DescriptionsModels.updateDescriptions(body, id)
     res.status(201).json({
-      message: 'Update descriptions success',
+      message: 'UPDATE descriptions success',
       data: {
         id: id,
         ...body

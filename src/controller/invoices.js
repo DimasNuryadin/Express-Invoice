@@ -58,15 +58,37 @@ const createNewInvoices = async (req, res) => {
   }
 }
 
-// UPDATE invoices
-const updateInvoice = async (req, res) => {
+// UPDATE invoices step-1
+const updateInvoiceStep1 = async (req, res) => {
   const { idInvoices } = req.params
   // console.log('id invoices', idInvoices)
   const { body } = req;
   try {
-    await InvoicesModel.updateInvoices(body, idInvoices);
+    await InvoicesModel.updateInvoiceStep1(body, idInvoices);
     res.status(201).json({
-      message: 'CREATE invoices success',
+      message: 'UPDATE invoices success',
+      data: {
+        id: idInvoices,
+        ...body
+      },
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      serverMessage: error
+    })
+  }
+}
+
+// UPDATE invoices step-2
+const updateInvoiceStep2 = async (req, res) => {
+  const { idInvoices } = req.params
+  // console.log('id invoices', idInvoices)
+  const { body } = req;
+  try {
+    await InvoicesModel.updateInvoiceStep2(body, idInvoices);
+    res.status(201).json({
+      message: 'UPDATE invoices success',
       data: {
         id: idInvoices,
         ...body
@@ -86,7 +108,7 @@ const deleteInvoice = async (req, res) => {
   try {
     await InvoicesModel.deleteInvoices(idInvoices)
     res.json({
-      message: 'CREATE invoices success',
+      message: 'DELETE invoices success',
       data: {
         id: idInvoices,
       },
@@ -103,6 +125,7 @@ module.exports = {
   getAllInvoices,
   getInvoices,
   createNewInvoices,
-  updateInvoice,
+  updateInvoiceStep1,
+  updateInvoiceStep2,
   deleteInvoice
 }
