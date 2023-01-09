@@ -7,14 +7,14 @@ const getAllDownPayments = () => {
 }
 
 const createNewDownPayments = (body) => {
-  const SQLQuery = `INSERT INTO down_payments (id_invoices, date, qty) VALUES (${body.id_invoices}, '${body.date}', ${body.qty})`;
+  const SQLQuery = `INSERT INTO down_payments (id_invoices, date, rate) VALUES (${body.id_invoices}, '${body.date}', ${body.rate})`;
 
 
   return dbPool.execute(SQLQuery);
 }
 
 const updateDownPayments = (body, id) => {
-  const SQLQuery = `UPDATE down_payments SET date='${body.date}', qty='${body.qty}' WHERE id=${id}`;
+  const SQLQuery = `UPDATE down_payments SET date='${body.date}', rate='${body.rate}' WHERE id=${id}`;
 
   return dbPool.execute(SQLQuery);
 }
