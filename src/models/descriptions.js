@@ -13,7 +13,7 @@ const createNewDescriptions = (body) => {
 }
 
 const deleteDescriptions = (id_invoices) => {
-  const SQLQuery = `DELETE FROM descriptions WHERE id=${id_invoices}`
+  const SQLQuery = `DELETE FROM descriptions WHERE id_invoices=${id_invoices}`
 
   return dbPool.execute(SQLQuery)
 }
