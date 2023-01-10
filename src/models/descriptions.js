@@ -1,9 +1,9 @@
 const dbPool = require('../config/database')
 
-const getAllDescrptions = () => {
-  const SQLQuery = `SELECT * FROM descriptions`
+const getDescriptions = (id_invoices) => {
+  const SQLQuery = `SELECT * FROM descriptions WHERE id_invoices=${id_invoices}`
 
-  return dbPool.execute(SQLQuery)
+  return dbPool.execute(SQLQuery);
 }
 
 const createNewDescriptions = (body) => {
@@ -12,21 +12,14 @@ const createNewDescriptions = (body) => {
   return dbPool.execute(SQLQuery);
 }
 
-const updateDescriptions = (body, id) => {
-  const SQLQuery = `UPDATE descriptions SET description='${body.description}', qty=${body.qty}, rate=${body.rate} WHERE id=${id}`;
+const deleteDescriptions = (id_invoices) => {
+  const SQLQuery = `DELETE FROM descriptions WHERE id=${id_invoices}`
 
-  return dbPool.execute(SQLQuery);
-}
-
-const deleteDescriptions = (id) => {
-  const SQLQuery = `DELETE FROM descriptions WHERE id=${id}`;
-
-  return dbPool.execute(SQLQuery);
+  return dbPool.execute(SQLQuery)
 }
 
 module.exports = {
-  getAllDescrptions,
+  getDescriptions,
   createNewDescriptions,
-  updateDescriptions,
-  deleteDescriptions
+  deleteDescriptions,
 }

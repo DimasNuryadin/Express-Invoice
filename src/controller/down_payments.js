@@ -1,8 +1,10 @@
 const DownPaymentsModels = require('../models/down_payments');
 
-const getAllDownPayments = async (req, res) => {
+const getDownPayments = async (req, res) => {
+  const { id_invoices } = req.params;
+
   try {
-    const [data] = await DownPaymentsModels.getAllDownPayments();
+    const [data] = await DownPaymentsModels.getDownPayments(id_invoices);
     res.json({
       message: 'GET down_payment success',
       data: data
@@ -32,37 +34,15 @@ const createDownPayments = async (req, res) => {
   }
 }
 
-const updateDownPayments = async (req, res) => {
-  const { id } = req.params;
-  const { body } = req;
-
-  try {
-    await DownPaymentsModels.updateDownPayments(body, id)
-
-    res.status(201).json({
-      message: 'UPDATE down_payment succes',
-      data: {
-        id: id,
-        ...body
-      }
-    })
-  } catch (error) {
-    res.status(500).json({
-      message: 'Server error',
-      messageError: error
-    })
-  }
-}
-
 const deleteDownPayments = async (req, res) => {
-  const { id } = req.params;
+  const { id_invoices } = req.params;
 
   try {
-    await DownPaymentsModels.deleteDownPayments(id);
+    await DownPaymentsModels.deleteDownPayments(id_invoices);
     res.status(200).json({
       message: 'DELETE down_payment success',
       data: {
-        id: id,
+        id: id_invoices,
       }
     })
   } catch (error) {
@@ -74,8 +54,7 @@ const deleteDownPayments = async (req, res) => {
 }
 
 module.exports = {
-  getAllDownPayments,
+  getDownPayments,
   createDownPayments,
-  updateDownPayments,
   deleteDownPayments
 }

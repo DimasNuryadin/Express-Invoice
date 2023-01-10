@@ -1,8 +1,10 @@
 const DescriptionsModels = require('../models/descriptions')
 
-const getAllDescriptions = async (req, res) => {
+const getDescriptions = async (req, res) => {
+  const { id_invoices } = req.params;
+
   try {
-    const [data] = await DescriptionsModels.getAllDescrptions();
+    const [data] = await DescriptionsModels.getDescriptions(id_invoices);
     res.json({
       message: 'GET descriptions success',
       data: data,
@@ -31,36 +33,15 @@ const createNewDescriptions = async (req, res) => {
   }
 }
 
-const updateDescription = async (req, res) => {
-  const { id } = req.params;
-  const { body } = req;
-
-  try {
-    await DescriptionsModels.updateDescriptions(body, id)
-    res.status(201).json({
-      message: 'UPDATE descriptions success',
-      data: {
-        id: id,
-        ...body
-      },
-    })
-  } catch (error) {
-    res.status(500).json({
-      message: 'Server error',
-      errorMessage: error
-    })
-  }
-}
-
 const deleteDescriptions = async (req, res) => {
-  const { id } = req.params
+  const { id_invoices } = req.params
   // console.log(id)
   try {
-    await DescriptionsModels.deleteDescriptions(id);
+    await DescriptionsModels.deleteDescriptions(id_invoices);
     res.json({
       message: 'DELETE descriptions success',
       data: {
-        id: id
+        id_invoices: id_invoices
       }
     })
   } catch (error) {
@@ -72,8 +53,7 @@ const deleteDescriptions = async (req, res) => {
 }
 
 module.exports = {
-  getAllDescriptions,
+  getDescriptions,
   createNewDescriptions,
-  updateDescription,
   deleteDescriptions
 }

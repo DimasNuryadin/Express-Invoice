@@ -1,7 +1,7 @@
 const dbPool = require('../config/database');
 
-const getAllDownPayments = () => {
-  const SQLQuery = `SELECT * FROM down_payments`
+const getDownPayments = (id_invoices) => {
+  const SQLQuery = `SELECT * FROM down_payments WHERE id_invoices=${id_invoices}`
 
   return dbPool.execute(SQLQuery)
 }
@@ -13,21 +13,14 @@ const createNewDownPayments = (body) => {
   return dbPool.execute(SQLQuery);
 }
 
-const updateDownPayments = (body, id) => {
-  const SQLQuery = `UPDATE down_payments SET date='${body.date}', rate='${body.rate}' WHERE id=${id}`;
-
-  return dbPool.execute(SQLQuery);
-}
-
-const deleteDownPayments = (id) => {
-  const SQLQuery = `DELETE FROM down_payments WHERE id=${id}`
+const deleteDownPayments = (id_invoices) => {
+  const SQLQuery = `DELETE FROM down_payments WHERE id_invoices=${id_invoices}`
 
   return dbPool.execute(SQLQuery);
 }
 
 module.exports = {
-  getAllDownPayments,
+  getDownPayments,
   createNewDownPayments,
-  updateDownPayments,
   deleteDownPayments
 }
