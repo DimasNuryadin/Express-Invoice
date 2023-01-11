@@ -19,6 +19,12 @@ const getInvoices = (idInvoices) => {
   return dbPool.execute(SQLQuery);
 }
 
+const getInvoicesCompany = (company) => {
+  const SQLQuery = `SELECT * FROM invoices WHERE company LIKE '%${company}%'`;
+
+  return dbPool.execute(SQLQuery);
+}
+
 const createNewInvoices = (body) => {
   const SQLQuery = `INSERT INTO invoices (alamat_perusahaan, no_invoice, company, invoice_date, due_date, latest_update) VALUES ('${body.alamat_perusahaan}', '${body.no_invoice}', '${body.company}', '${body.invoice_date}', '${body.due_date}', '${now}')`;
 
@@ -59,6 +65,7 @@ const deleteInvoices = (idInvoices) => {
 module.exports = {
   getAllInvoices,
   getInvoices,
+  getInvoicesCompany,
   createNewInvoices,
   updateInvoiceStep1,
   updateInvoiceStep2,
