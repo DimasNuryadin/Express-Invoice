@@ -9,7 +9,7 @@ const now = `${year}-${month + 1}-${date}`;
 // console.log("now : ", now)
 
 const getAllInvoices = () => {
-  const SQLQuery = 'SELECT * FROM invoices';
+  const SQLQuery = 'SELECT id,company,latest_update FROM invoices';
   return dbPool.execute(SQLQuery);
 }
 
