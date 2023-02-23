@@ -1,6 +1,7 @@
 const UsersModels = require('../models/users')
 const jwt = require('jsonwebtoken');
 const config = require('../config/jwt');
+const nodemailer = require('../config/nodemailer')
 
 const loginUser = async (req, res) => {
   const { body } = req;
@@ -38,6 +39,38 @@ const loginUser = async (req, res) => {
   }
 }
 
+const sendEmail = async (req, res) => {
+  const { body } = req;
+
+  if (!body.nama) {
+    return res.status(400).json({
+      message: 'Nama wajib diisi!'
+    })
+  } else if (!body.phone) {
+    return res.status(400).json({
+      message: 'No Telepon wajib diisi!'
+    })
+  } else if (!body.email) {
+    return res.status(400).json({
+      message: 'Email wajib diisi!'
+    })
+  } else if (!body.message) {
+    return res.status(400).json({
+      message: 'Message wajib diisi!'
+    })
+  }
+
+  try {
+    console.log(body);
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error',
+      messageError: error
+    })
+  }
+}
+
 module.exports = {
   loginUser,
+  sendEmail,
 }
