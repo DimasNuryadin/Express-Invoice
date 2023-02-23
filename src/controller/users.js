@@ -61,7 +61,20 @@ const sendEmail = async (req, res) => {
   }
 
   try {
-    console.log(body);
+    const data = await nodemailer(body.nama, body.phone, body.email, body.message)
+
+    if (data.messageId.length) {
+      res.status(200).json({
+        message: 'Email terkirim',
+        email: body.email,
+        sendTo: data.accepted[0]
+      })
+    } else {
+      res.status(400).json({
+        message: 'Email gagal terkirim',
+        email: body.email
+      })
+    }
   } catch (error) {
     res.status(500).json({
       message: 'Server error',

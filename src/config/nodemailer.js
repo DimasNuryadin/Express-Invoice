@@ -15,9 +15,9 @@ const sendEmail = async (nama, phone, email, message) => {
   // to: "dimasnuryadinn@gmail.com, baz@example.com", // list of receivers
 
   const emailValue = {
-    from: '"Fred Foo 👻" <foo@example.com>',
-    to: "dimasnuryadinn@gmail.com", // list of receivers
-    subject: "Hello ✔",
+    from: `"Kamojang Mandiri Invoice" <` + email + `>`,
+    to: "dimasnuryadinn@gmail.com",
+    subject: `${nama}`,
     text: "Hello world?",
     html: `
     <!doctype html>
@@ -27,12 +27,6 @@ const sendEmail = async (nama, phone, email, message) => {
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Simple Transactional Email</title>
         <style>
-          /* -------------------------------------
-              GLOBAL RESETS
-          ------------------------------------- */
-
-          /*All the styling goes here*/
-
           img {
             border: none;
             -ms-interpolation-mode: bicubic;
@@ -355,7 +349,6 @@ const sendEmail = async (nama, phone, email, message) => {
         </style>
       </head>
       <body>
-        <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
           <tr>
             <td>&nbsp;</td>
@@ -371,14 +364,10 @@ const sendEmail = async (nama, phone, email, message) => {
                       <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                         <tr>
                           <td>
-                            <p>Hi there,</p>
-                            <p>Sometimes you just want to send a simple HTML email with a simple design and clear call to action. This is it.</p>
+                            <p>Hi, anda mendapat email dari `+ email + ` </p>
+                            <p>`+ message + `</p>
                             <p>Nama : `+ nama + `</p>
                             <p>No Telepon : `+ phone + `</p>
-                            <p>Email : `+ email + `</p>
-                            <br>
-                            <p>Message : </p>
-                            <p>`+ message + `</p>
                             <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                               <tbody>
                                 <tr>
@@ -386,7 +375,7 @@ const sendEmail = async (nama, phone, email, message) => {
                                     <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                       <tbody>
                                         <tr>
-                                          <td> <a href="http://htmlemail.io" target="_blank">Call To Action</a> </td>
+                                          <td> <a href="mailto:`+ email + `" target="_blank">Balas Email</a> </td>
                                         </tr>
                                       </tbody>
                                     </table>
@@ -394,8 +383,6 @@ const sendEmail = async (nama, phone, email, message) => {
                                 </tr>
                               </tbody>
                             </table>
-                            <p>This is a really simple email template. Its sole purpose is to get the recipient to click the button with no distractions.</p>
-                            <p>Good luck! Hope it works.</p>
                           </td>
                         </tr>
                       </table>
@@ -411,13 +398,8 @@ const sendEmail = async (nama, phone, email, message) => {
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td class="content-block">
-                        <span class="apple-link">Company Inc, 3 Abbey Road, San Francisco CA 94102</span>
-                        <br> Don't like these emails? <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="content-block powered-by">
-                        Powered by <a href="http://htmlemail.io">HTMLemail</a>.
+                        <span class="apple-link">Kamojang Mandiri, Jl. Raya Kamojang No. 74-Kab. Bandung</span>
+                        <br> Powered by <a href="http://htmlemail.io">HTMLemail</a>.
                       </td>
                     </tr>
                   </table>
@@ -437,12 +419,14 @@ const sendEmail = async (nama, phone, email, message) => {
   // send mail with defined transport object
   let info = await transporter.sendMail(emailValue);
 
-  console.log("Message sent: %s", info.messageId);
+  // console.log("Message sent: %s", info.messageId);
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
   // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+
+  return info;
 }
 
-module.exports = sendEmail().catch(console.error)
+module.exports = sendEmail;
