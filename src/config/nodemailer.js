@@ -251,10 +251,6 @@ const sendEmail = async (nama, phone, email, message) => {
             width: 0; 
           }
         
-          .powered-by a {
-            text-decoration: none; 
-          }
-        
           hr {
             border: 0;
             border-bottom: 1px solid #f6f6f6;
@@ -399,7 +395,6 @@ const sendEmail = async (nama, phone, email, message) => {
                     <tr>
                       <td class="content-block">
                         <span class="apple-link">Kamojang Mandiri, Jl. Raya Kamojang No. 74-Kab. Bandung</span>
-                        <br> Powered by <a href="http://htmlemail.io">HTMLemail</a>.
                       </td>
                     </tr>
                   </table>
