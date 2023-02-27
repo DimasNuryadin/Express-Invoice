@@ -1,6 +1,6 @@
 const UsersModels = require('../models/users')
 const jwt = require('jsonwebtoken');
-const config = require('../config/jwt');
+const config = require('../config/secret_jwt');
 const nodemailer = require('../config/nodemailer')
 
 const loginUser = async (req, res) => {
