@@ -6,7 +6,7 @@ const usersRoutes = require('./routes/users')
 const invoicesRoutes = require('./routes/invoices')
 const descriptionsRoutes = require('./routes/descriptions')
 const downPaymentRoutes = require('./routes/down_payments')
-const middlewareLogRequest = require('./middleware/log')
+const verifyToken = require('./middleware/verify_token');
 const cors = require('cors')
 
 // Mengizinkan express network
@@ -17,7 +17,7 @@ app.use(express.json());  // Mengizinkan req.body berupa json
 app.use('/users', usersRoutes)
 
 // Middleware
-app.use('/', middlewareLogRequest)
+app.use('/', verifyToken)
 app.use('/invoices', invoicesRoutes)
 app.use('/descriptions', descriptionsRoutes)
 app.use('/down_payments', downPaymentRoutes)

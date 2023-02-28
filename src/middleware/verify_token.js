@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const config = require('./secret_jwt');
+const config = require('../config/secret_jwt');
 
-const verifyToken = (req, res) => {
+const verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
 
   const token = authHeader && authHeader.split(' ')[1];
@@ -12,15 +12,20 @@ const verifyToken = (req, res) => {
       error: 'Unauthorized'
     });
   }
+  // console.log(token)
 
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
-      return res.sendStatus(403);
+      return res.status(403).json({
+        message: 'Sesi telah berakhir silahkan login kembali!',
+        error: 'Forbidden'
+      });
+    } else {
+      req.user = decoded;
+      next();
     }
 
-    req.user = decoded.user;
-    console.log('decoded token : ', req.user)
-    next();
+    // console.log('decoded token : ', decoded)
   })
 }
 

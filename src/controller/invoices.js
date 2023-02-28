@@ -4,6 +4,7 @@ const InvoicesModel = require('../models/invoices')
 // const [rows, field] = await InvoicesModel.getAllInvoices();
 
 const getAllInvoices = async (req, res) => {
+  // Mengambil data dari jwt = console.log("request : ", req.user);
 
   try {
     const [data] = await InvoicesModel.getAllInvoices();
