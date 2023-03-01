@@ -20,7 +20,7 @@ const loginUser = async (req, res) => {
       // Data destructuring
       const data1 = data[0];
       const token = jwt.sign(data1, config.secret, {
-        expiresIn: '21600000' // berakhir dalam 6 jam
+        expiresIn: '86400000' // berakhir dalam 1 hari
       });
       res.status(200).json({
         message: 'LOGIN users success',
